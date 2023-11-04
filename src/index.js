@@ -35,7 +35,6 @@ breedSelect.addEventListener('change', function () {
     .then(data => {
       const imgElement = document.createElement('img');
       imgElement.src = data[0].url;
-      imgElement.height = 300;
       imgElement.classList.add('cat-image');
       catInfo.innerHTML = '';
       catInfo.appendChild(imgElement);
@@ -44,18 +43,22 @@ breedSelect.addEventListener('change', function () {
         .then(cats => {
           const selectedCat = cats.find(cat => cat.id === breedId);
 
+          const descriptionDiv = document.createElement('div');
+          descriptionDiv.classList.add('description');
+          catInfo.appendChild(descriptionDiv);
+
           const nameElement = document.createElement('h2');
           nameElement.textContent = `${selectedCat.name}`;
-          catInfo.appendChild(nameElement);
+          descriptionDiv.appendChild(nameElement);
 
           const descriptionElement = document.createElement('p');
           descriptionElement.textContent = `${selectedCat.description}`;
-          catInfo.appendChild(descriptionElement);
+          descriptionDiv.appendChild(descriptionElement);
 
           const temperamentElement = document.createElement('p');
           temperamentElement.textContent = `Temperament: ${selectedCat.temperament}`;
           temperamentElement.classList.add('temperament');
-          catInfo.appendChild(temperamentElement);
+          descriptionDiv.appendChild(temperamentElement);
         })
         .catch(error => {
           console.log(error);
