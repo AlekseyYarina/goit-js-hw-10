@@ -114,16 +114,16 @@ main {
   text-align: center;
 }
 
-.description{
-display: flex;
-flex-direction: column;
-flex-wrap: nowrap;
-gap: 30px;
-padding: 40px 60px 40px 20px;
-font-size: 20px;
+.description {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 30px;
+  padding: 40px 60px 40px 20px;
+  font-size: 20px;
 }
 
-.div-temperament{
+.div-temperament {
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -25,9 +25,8 @@ fetchBreeds()
   })
   .finally(() => hideLoader());
 
-
 function onSelectChange(e) {
-    const breedId = e.target.value;
+  const breedId = e.target.value;
 
   showLoader();
 
@@ -45,7 +44,7 @@ function onSelectChange(e) {
       Notiflix.Notify.failure('Please reload the page.');
     })
     .finally(() => hideLoader());
-};
+}
 
 function markupCreator(imgUrl, name, description, temperament) {
   return `

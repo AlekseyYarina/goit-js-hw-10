@@ -21,8 +21,7 @@ export function fetchBreeds() {
 }
 
 export function fetchCatByBreed(breedId) {
-  // return fetch(`${BASE_URL}/images/search?breed_ids=${breedId}`, {
-    return fetch(`${BASE_URL}/images/${breedId}`, {
+  return fetch(`${BASE_URL}/images/${breedId}`, {
     headers: {
       'x-api-key': API_KEY,
     },
