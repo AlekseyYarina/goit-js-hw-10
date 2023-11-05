@@ -108,16 +108,12 @@ main {
   }
 }
 
-.error {
-  padding: 10px;
-  font-size: 18px;
-}
-
 .cat-info {
   display: flex;
-  margin-top: 20px;
+  margin-top: 40px;
   text-align: center;
 }
+
 .description{
 display: flex;
 flex-direction: column;
@@ -126,6 +122,7 @@ gap: 30px;
 padding: 40px 60px 40px 20px;
 font-size: 20px;
 }
+
 .div-temperament{
   display: flex;
   flex-direction: column;
