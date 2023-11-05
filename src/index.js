@@ -3,21 +3,20 @@ import SlimSelect from 'slim-select';
 import Notiflix from 'notiflix';
 
 const breedSelect = document.querySelector('.breed-select');
+breedSelect.addEventListener('change', onSelectChange);
 const catInfo = document.querySelector('.cat-info');
 
 fetchBreeds()
   .then(data => {
-    data.map(({ id, name }) => {
-      const option = document.createElement('option');
-      option.value = id;
-      option.text = name;
-      breedSelect.appendChild(option);
-    });
+    let selectMarkup = data
+      .map(({ name, reference_image_id }) => {
+        return `<option value=${reference_image_id}>${name}</option>`;
+      })
+      .join('');
+    selectMarkup = '<option data-placeholder="true"></option>' + selectMarkup;
+    breedSelect.insertAdjacentHTML('beforeend', selectMarkup);
     new SlimSelect({
       select: '#selectElement',
-      settings: {
-        placeholderText: 'Select a breed',
-      },
     });
   })
   .catch(error => {
@@ -26,52 +25,40 @@ fetchBreeds()
   })
   .finally(() => hideLoader());
 
-breedSelect.addEventListener('change', function () {
-  const breedId = breedSelect.value;
+
+function onSelectChange(e) {
+    const breedId = e.target.value;
 
   showLoader();
 
   fetchCatByBreed(breedId)
-    .then(data => {
-      const imgElement = document.createElement('img');
-      imgElement.src = data[0].url;
-      imgElement.classList.add('cat-image');
-      catInfo.innerHTML = '';
-      catInfo.appendChild(imgElement);
-
-      fetchBreeds()
-        .then(cats => {
-          const selectedCat = cats.find(cat => cat.id === breedId);
-
-          const descriptionDiv = document.createElement('div');
-          descriptionDiv.classList.add('description');
-          catInfo.appendChild(descriptionDiv);
-
-          const nameElement = document.createElement('h2');
-          nameElement.textContent = `${selectedCat.name}`;
-          descriptionDiv.appendChild(nameElement);
-
-          const descriptionElement = document.createElement('p');
-          descriptionElement.textContent = `${selectedCat.description}`;
-          descriptionDiv.appendChild(descriptionElement);
-
-          const temperamentElement = document.createElement('p');
-          temperamentElement.textContent = `Temperament: ${selectedCat.temperament}`;
-          temperamentElement.classList.add('temperament');
-          descriptionDiv.appendChild(temperamentElement);
-        })
-        .catch(error => {
-          console.log(error);
-          Notiflix.Notify.failure('Please reload the page.');
-        })
-        .finally(() => hideLoader());
+    .then(({ url, breeds }) => {
+      catInfo.innerHTML = markupCreator(
+        url,
+        breeds[0].name,
+        breeds[0].description,
+        breeds[0].temperament
+      );
     })
     .catch(error => {
       console.log(error);
       Notiflix.Notify.failure('Please reload the page.');
     })
     .finally(() => hideLoader());
-});
+};
+
+function markupCreator(imgUrl, name, description, temperament) {
+  return `
+      <img class="cat-image" src=${imgUrl}>
+      <div class="description">
+        <h2>${name}</h2>
+        <p>${description}</p>
+        <div class="div-temperament">
+              <h3 class="temperament">Temperament</h3>
+        <p style="display: inline">${temperament}</p>
+        </div>
+      </div>`;
+}
 
 function showLoader() {
   document.querySelector('.loader-container').style.display = 'flex';

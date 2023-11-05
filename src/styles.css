@@ -31,7 +31,6 @@ main {
 }
 
 .is-hidden {
-  /* display: none;  */
   visibility: hidden;
   opacity: 0;
   cursor: default;
@@ -123,12 +122,16 @@ main {
 display: flex;
 flex-direction: column;
 flex-wrap: nowrap;
-gap: 20px;
+gap: 30px;
 padding: 40px 60px 40px 20px;
+font-size: 20px;
 }
-
+.div-temperament{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .temperament {
-  font-size: 16px;
   font-weight: 700;
 }
 
