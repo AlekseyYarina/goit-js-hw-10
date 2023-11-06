@@ -45,6 +45,7 @@ main {
   padding: 10px;
   font-size: 16px;
 }
+
 .breed-select:hover {
   cursor: pointer;
 }
@@ -128,6 +129,7 @@ main {
   flex-direction: column;
   gap: 10px;
 }
+
 .temperament {
   font-weight: 700;
 }
@@ -140,3 +142,5 @@ main {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+/* test */

@@ -6,6 +6,7 @@ const breedSelect = document.querySelector('.breed-select');
 breedSelect.addEventListener('change', onSelectChange);
 const catInfo = document.querySelector('.cat-info');
 
+showLoader();
 fetchBreeds()
   .then(data => {
     let selectMarkup = data
@@ -17,19 +18,22 @@ fetchBreeds()
     breedSelect.insertAdjacentHTML('beforeend', selectMarkup);
     new SlimSelect({
       select: '#selectElement',
+      settings: {
+        searchPlaceholder: 'Search',
+        placeholderText: 'Choose a breed',
+      },
     });
   })
   .catch(error => {
     console.log(error);
-    Notiflix.Notify.failure('Please reload the page.');
+    Notiflix.Notify.failure('Oops! Something wrong! Please reload the page.');
   })
   .finally(() => hideLoader());
 
 function onSelectChange(e) {
   const breedId = e.target.value;
-
+  catInfo.innerHTML = '';
   showLoader();
-
   fetchCatByBreed(breedId)
     .then(({ url, breeds }) => {
       catInfo.innerHTML = markupCreator(
@@ -41,7 +45,7 @@ function onSelectChange(e) {
     })
     .catch(error => {
       console.log(error);
-      Notiflix.Notify.failure('Please reload the page.');
+      Notiflix.Notify.failure('Oops! Something wrong! Please reload the page.');
     })
     .finally(() => hideLoader());
 }
@@ -66,3 +70,5 @@ function showLoader() {
 function hideLoader() {
   document.querySelector('.loader-container').style.display = 'none';
 }
+
+// test

@@ -1,5 +1,6 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
+
 const API_KEY =
   'live_6kgQm9Oq7Y1uFrZScxmMgASQPnA6WAWCKTXaxLesgTg3ZHEjiqVNW2Skf6dwGuw8';
 axios.defaults.headers.common['x-api-key'] = API_KEY;
@@ -13,7 +14,6 @@ export function fetchBreeds() {
     },
   }).then(response => {
     if (!response.ok) {
-      Notiflix.Notify.failure('Error! Failed to load breeds.');
       throw new Error(response.statusText);
     }
     return response.json();
@@ -27,9 +27,10 @@ export function fetchCatByBreed(breedId) {
     },
   }).then(response => {
     if (!response.ok) {
-      Notiflix.Notify.failure('Error! Failed to load cat by breed.');
       throw new Error(response.statusText);
     }
     return response.json();
   });
 }
+
+// test
